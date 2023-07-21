@@ -1,4 +1,4 @@
-use mdbook::book::Chapter;
+use mdbook::{book::Chapter, BookItem};
 
 const MINDMAP_INDICATOR: &str = "!mindmap";
 const MERMAID_IMPORT: &str = "<script type='module'>
@@ -22,10 +22,33 @@ fn create_mindmap(chapter: &Chapter) -> String {
     let root_name = &chapter.name;
 
     let mut mindmap = Vec::<String>::new();
+
     mindmap.push("<pre class='mermaid'>".into());
     mindmap.push("mindmap".into());
     mindmap.push(format!("  root(({}))", root_name));
+    mindmap.push(create_mindmap_items(&chapter.sub_items, 0));
     mindmap.push("</pre>".into());
 
     mindmap.join("\n")
+}
+
+fn create_mindmap_items(items: &Vec<BookItem>, depth: usize) -> String {
+    let spacing = " ".repeat(4 + (depth * 2));
+    let mut mindmap_items = Vec::<String>::new();
+
+    for item in items.iter() {
+        match item {
+            BookItem::Chapter(chapter) => {
+                mindmap_items.push(format!("{}{}", spacing, chapter.name));
+
+                let mindmap_sub_items = create_mindmap_items(&chapter.sub_items, depth + 2);
+                if mindmap_sub_items.len() > 0 {
+                    mindmap_items.push(mindmap_sub_items);
+                }
+            }
+            _ => {}
+        }
+    }
+
+    mindmap_items.join("\n")
 }
