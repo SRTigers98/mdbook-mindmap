@@ -23,10 +23,7 @@ impl Preprocessor for MindmapPreprocessor {
     fn run(&self, _: &PreprocessorContext, book: Book) -> Result<Book> {
         let mut processed_book = book.clone();
 
-        processed_book.for_each_mut(|item| match item {
-            BookItem::Chapter(chapter) => process_chapter(chapter),
-            _ => {}
-        });
+        processed_book.for_each_mut(process_book_item);
 
         Result::Ok(processed_book)
     }
@@ -36,13 +33,17 @@ impl Preprocessor for MindmapPreprocessor {
     }
 }
 
+fn process_book_item(item: &mut BookItem) {
+    match item {
+        BookItem::Chapter(chapter) => process_chapter(chapter),
+        _ => {}
+    };
+}
+
 fn process_chapter(chapter: &mut Chapter) {
     if check_mindmap_indicator(chapter) {
         chapter.content = process_chapter_content(chapter);
     }
 
-    chapter.sub_items.iter_mut().for_each(|item| match item {
-        BookItem::Chapter(chapter) => process_chapter(chapter),
-        _ => {}
-    });
+    chapter.sub_items.iter_mut().for_each(process_book_item);
 }
