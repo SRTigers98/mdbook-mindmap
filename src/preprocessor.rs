@@ -5,6 +5,8 @@ use mdbook::{
     BookItem,
 };
 
+use crate::mindmap::{check_mindmap_indicator, process_mindmap_indicator};
+
 pub struct MindmapPreprocessor;
 
 impl MindmapPreprocessor {
@@ -34,4 +36,11 @@ impl Preprocessor for MindmapPreprocessor {
     }
 }
 
-fn process_chapter(_: &mut Chapter) {}
+fn process_chapter(chapter: &mut Chapter) {
+    if !check_mindmap_indicator(chapter) {
+        return;
+    }
+
+    let processed_content = process_mindmap_indicator(chapter);
+    chapter.content = processed_content;
+}
