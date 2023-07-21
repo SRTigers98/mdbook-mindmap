@@ -11,11 +11,21 @@ pub fn check_mindmap_indicator(chapter: &Chapter) -> bool {
 }
 
 pub fn process_chapter_content(chapter: &Chapter) -> String {
-    let content = chapter.content.clone();
-
-    import_mermaid_js(content)
+    import_mermaid_js(chapter.content.clone()).replace(MINDMAP_INDICATOR, &create_mindmap(chapter))
 }
 
 fn import_mermaid_js(content: String) -> String {
     format!("{}\n{}", content, MERMAID_IMPORT)
+}
+
+fn create_mindmap(chapter: &Chapter) -> String {
+    let root_name = &chapter.name;
+
+    let mut mindmap = Vec::<String>::new();
+    mindmap.push("<pre class='mermaid'>".into());
+    mindmap.push("mindmap".into());
+    mindmap.push(format!("  root(({}))", root_name));
+    mindmap.push("</pre>".into());
+
+    mindmap.join("\n")
 }
