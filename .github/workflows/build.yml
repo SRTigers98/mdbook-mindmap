@@ -17,6 +17,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Code Style
+        run: cargo fmt --check
+
       - name: Check
         run: cargo check
 
