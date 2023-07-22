@@ -25,7 +25,7 @@ fn create_mindmap(chapter: &Chapter) -> String {
 
     mindmap.push("<pre class='mermaid'>".into());
     mindmap.push("mindmap".into());
-    mindmap.push(format!("  root(({}))", root_name));
+    mindmap.push(format!("  root){}(", root_name));
     mindmap.push(create_mindmap_items(&chapter.sub_items, 0));
     mindmap.push("</pre>".into());
 
