@@ -39,7 +39,16 @@ fn create_mindmap_items(items: &Vec<BookItem>, depth: usize) -> String {
     for item in items.iter() {
         match item {
             BookItem::Chapter(chapter) => {
-                mindmap_items.push(format!("{}{}", spacing, chapter.name));
+                let mindmap_item = format!(
+                    "{}(\"`{}`\")",
+                    chapter
+                        .name
+                        .replace(" ", "")
+                        .replace("-", "")
+                        .to_lowercase(),
+                    chapter.name
+                );
+                mindmap_items.push(format!("{}{}", spacing, mindmap_item));
 
                 let mindmap_sub_items = create_mindmap_items(&chapter.sub_items, depth + 2);
                 if mindmap_sub_items.len() > 0 {
