@@ -1,8 +1,8 @@
 use mdbook::{book::Chapter, BookItem};
 
 const MINDMAP_INDICATOR: &str = "!mindmap";
-const MERMAID_IMPORT: &str = "<script type='module'>
-    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+const MERMAID_IMPORT: &str = "<script type=\"module\">
+    import mermaid from \"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs\";
     mermaid.initialize({ startOnLoad: true });
 </script>";
 
@@ -23,7 +23,7 @@ fn create_mindmap(chapter: &Chapter) -> String {
 
     let mut mindmap = Vec::<String>::new();
 
-    mindmap.push("<pre class='mermaid'>".into());
+    mindmap.push("<pre class=\"mermaid\">".into());
     mindmap.push("mindmap".into());
     mindmap.push(format!("  root){}(", root_name));
     mindmap.push(create_mindmap_items(&chapter.sub_items, 0));
