@@ -15,6 +15,12 @@ impl MindmapPreprocessor {
     }
 }
 
+impl Default for MindmapPreprocessor {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Preprocessor for MindmapPreprocessor {
     fn name(&self) -> &str {
         "mdbook-mindmap"
@@ -34,10 +40,9 @@ impl Preprocessor for MindmapPreprocessor {
 }
 
 fn process_book_item(item: &mut BookItem) {
-    match item {
-        BookItem::Chapter(chapter) => process_chapter(chapter),
-        _ => {}
-    };
+    if let BookItem::Chapter(chapter) = item {
+        process_chapter(chapter);
+    }
 }
 
 fn process_chapter(chapter: &mut Chapter) {

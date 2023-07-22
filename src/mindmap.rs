@@ -32,30 +32,23 @@ fn create_mindmap(chapter: &Chapter) -> String {
     mindmap.join("\n")
 }
 
-fn create_mindmap_items(items: &Vec<BookItem>, depth: usize) -> String {
+fn create_mindmap_items(items: &[BookItem], depth: usize) -> String {
     let spacing = " ".repeat(4 + (depth * 2));
     let mut mindmap_items = Vec::<String>::new();
 
     for item in items.iter() {
-        match item {
-            BookItem::Chapter(chapter) => {
-                let mindmap_item = format!(
-                    "{}(\"`{}`\")",
-                    chapter
-                        .name
-                        .replace(" ", "")
-                        .replace("-", "")
-                        .to_lowercase(),
-                    chapter.name
-                );
-                mindmap_items.push(format!("{}{}", spacing, mindmap_item));
+        if let BookItem::Chapter(chapter) = item {
+            let mindmap_item = format!(
+                "{}(\"`{}`\")",
+                chapter.name.replace([' ', '-'], "").to_lowercase(),
+                chapter.name
+            );
+            mindmap_items.push(format!("{}{}", spacing, mindmap_item));
 
-                let mindmap_sub_items = create_mindmap_items(&chapter.sub_items, depth + 1);
-                if mindmap_sub_items.len() > 0 {
-                    mindmap_items.push(mindmap_sub_items);
-                }
+            let mindmap_sub_items = create_mindmap_items(&chapter.sub_items, depth + 1);
+            if !mindmap_sub_items.is_empty() {
+                mindmap_items.push(mindmap_sub_items);
             }
-            _ => {}
         }
     }
 
