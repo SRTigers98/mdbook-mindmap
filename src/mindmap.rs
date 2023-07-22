@@ -50,7 +50,7 @@ fn create_mindmap_items(items: &Vec<BookItem>, depth: usize) -> String {
                 );
                 mindmap_items.push(format!("{}{}", spacing, mindmap_item));
 
-                let mindmap_sub_items = create_mindmap_items(&chapter.sub_items, depth + 2);
+                let mindmap_sub_items = create_mindmap_items(&chapter.sub_items, depth + 1);
                 if mindmap_sub_items.len() > 0 {
                     mindmap_items.push(mindmap_sub_items);
                 }
