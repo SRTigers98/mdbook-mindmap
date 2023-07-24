@@ -19,14 +19,29 @@ jobs:
       actions: read
 
     env:
+      SARIF_VERSION: 0.4.0
       RESULT_FILE: rust-clippy-results.sarif
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Cache sarif crates
+        id: cache-sarif
+        uses: actions/cache@v3
+        with:
+          path: ~/.cargo/bin/
+          key: ${{ runner.os }}-sarif-${{ env.SARIF_VERSION }}
+
+      - name: Cache target
+        uses: actions/cache@v3
+        with:
+          path: ./target/
+          key: ${{ runner.os }}-clippy-target-${{ hashFiles('./Cargo.toml') }}
+
       - name: Install sarif crates
-        run: cargo install clippy-sarif sarif-fmt
+        if: steps.cache-sarif.outputs.cache-hit != 'true'
+        run: cargo install --version ${{ env.SARIF_VERSION }} clippy-sarif sarif-fmt
 
       - name: Run clippy
         run:
@@ -64,6 +79,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Cache target
+        uses: actions/cache@v3
+        with:
+          path: ./target/
+          key: ${{ runner.os }}-build-target-${{ hashFiles('./Cargo.toml') }}
 
       - name: Build
         run: cargo build
