@@ -19,3 +19,8 @@
 
 # Go workspace file
 go.work
+
+# Binaries
+bin/*
+main
+mdbook-mindmap
