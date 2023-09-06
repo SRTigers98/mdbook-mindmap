@@ -1,5 +1,7 @@
 # mdbook-mindmap
 
+[![Build](https://github.com/SRTigers98/mdbook-mindmap/actions/workflows/build.yml/badge.svg)](https://github.com/SRTigers98/mdbook-mindmap/actions/workflows/build.yml)
+
 A mdbook preprocessor to create mindmaps from the book structure.
 
 ## Installation
