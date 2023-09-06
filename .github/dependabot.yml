@@ -5,4 +5,4 @@ updates:
     package-ecosystem: gomod
     rebase-strategy: auto
     schedule:
-      timezone: weekly
+      interval: weekly
