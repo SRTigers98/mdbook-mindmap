@@ -17,5 +17,11 @@ func (p *DefaultSectionProcessor) ProcessSection(section any) any {
 }
 
 func (p *DefaultSectionProcessor) IsChapter(section any) bool {
-	return false
+	switch s := section.(type) {
+	case map[string]any:
+		_, ok := s["Chapter"]
+		return ok
+	default:
+		return false
+	}
 }
