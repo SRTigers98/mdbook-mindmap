@@ -62,11 +62,32 @@ jobs:
       - name: Check Code Format
         run: test -z $(gofmt -l .)
 
+  examine:
+    runs-on: ubuntu-latest
+    needs:
+      - fmt
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version-file: go.mod
+          check-latest: true
+
+      - name: Examine Source Code
+        run: go vet ./...
+
   build:
     runs-on: ubuntu-latest
     needs:
       - analyze
-      - fmt
+      - examine
 
     permissions:
       contents: read
