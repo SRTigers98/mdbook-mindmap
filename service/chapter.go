@@ -1,5 +1,11 @@
 package service
 
+import "strings"
+
+const (
+	MINDMAP_INDICATOR = "!mindmap"
+)
+
 type ChapterProcessor interface {
 	HasMindmapIndicator(chapter map[string]any) bool
 	ProcessChapter(chapter map[string]any) map[string]any
@@ -13,7 +19,12 @@ func NewChapterProcessor() ChapterProcessor {
 }
 
 func (p *DefaultChapterProcessor) HasMindmapIndicator(chapter map[string]any) bool {
-	return false
+	content, ok := chapter["content"]
+	if !ok {
+		return false
+	}
+
+	return strings.Contains(content.(string), MINDMAP_INDICATOR)
 }
 
 func (p *DefaultChapterProcessor) ProcessChapter(chapter map[string]any) map[string]any {
