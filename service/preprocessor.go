@@ -12,5 +12,19 @@ func NewPreprocessor() Preprocessor {
 }
 
 func (p *DefaultPreprocessor) ProcessBook(context map[string]any, book map[string]any) map[string]any {
-	return book
+	sections := book["sections"].([]any)
+
+	var processedSections []any
+	for _, section := range sections {
+		processedSection := sectionProcessor.ProcessSection(section)
+
+		processedSections = append(processedSections, processedSection)
+	}
+
+	processedBook := map[string]any{
+		"sections":         processedSections,
+		"__non_exhaustive": book["__non_exhaustive"],
+	}
+
+	return processedBook
 }
