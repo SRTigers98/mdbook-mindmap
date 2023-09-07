@@ -13,7 +13,17 @@ func NewSectionProcessor() SectionProcessor {
 }
 
 func (p *DefaultSectionProcessor) ProcessSection(section any) any {
-	return section
+	if !p.IsChapter(section) {
+		return section
+	}
+
+	chapter := section.(map[string]any)
+
+	if !chapterProcessor.HasMindmapIndicator(chapter) {
+		return chapter
+	}
+
+	return chapterProcessor.ProcessChapter(chapter)
 }
 
 func (p *DefaultSectionProcessor) IsChapter(section any) bool {
