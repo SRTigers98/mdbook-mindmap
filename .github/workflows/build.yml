@@ -82,12 +82,33 @@ jobs:
 
       - name: Examine Source Code
         run: go vet ./...
+  
+  test:
+    runs-on: ubuntu-latest
+    needs:
+      - examine
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version-file: go.mod
+          check-latest: true
+
+      - name: Test
+        run: go test ./...
 
   build:
     runs-on: ubuntu-latest
     needs:
       - analyze
-      - examine
+      - test
 
     permissions:
       contents: read
