@@ -1,0 +1,156 @@
+{
+  "__non_exhaustive": null,
+  "sections": [
+    {
+      "Chapter": {
+        "content": "",
+        "name": "Prefix",
+        "number": null,
+        "parent_names": [],
+        "path": null,
+        "source_path": null,
+        "sub_items": []
+      }
+    },
+    {
+      "Chapter": {
+        "content": "# Chapter 1\n",
+        "name": "Chapter 1",
+        "number": [
+          1
+        ],
+        "parent_names": [],
+        "path": "chapter_1.md",
+        "source_path": "chapter_1.md",
+        "sub_items": []
+      }
+    },
+    {
+      "PartTitle": "Tool Part"
+    },
+    {
+      "Chapter": {
+        "content": "# MindMap Chapter\n\n\u003cpre class=\"mermaid\"\u003e\nmindmap\n  root)Tools(\n    408513086(\"`Gradle`\")\n    932387233(\"`NPM`\")\n    2596981504(\"`Kubernetes`\")\n      994518411(\"`Pod`\")\n      773890894(\"`Service`\")\n\u003c/pre\u003e\n\n\n\u003cscript type=\"module\"\u003e\n    import mermaid from \"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs\";\n    mermaid.initialize({ startOnLoad: true });\n\u003c/script\u003e",
+        "name": "Tools",
+        "number": [
+          2
+        ],
+        "parent_names": [],
+        "path": "chapter_mindmap.md",
+        "source_path": "chapter_mindmap.md",
+        "sub_items": [
+          {
+            "Chapter": {
+              "content": "",
+              "name": "Gradle",
+              "number": [
+                2,
+                1
+              ],
+              "parent_names": [
+                "Tools"
+              ],
+              "path": "tools/gradle.md",
+              "source_path": "tools/gradle.md",
+              "sub_items": []
+            }
+          },
+          {
+            "Chapter": {
+              "content": "",
+              "name": "NPM",
+              "number": [
+                2,
+                2
+              ],
+              "parent_names": [
+                "Tools"
+              ],
+              "path": "tools/npm.md",
+              "source_path": "tools/npm.md",
+              "sub_items": []
+            }
+          },
+          {
+            "Chapter": {
+              "content": "",
+              "name": "Kubernetes",
+              "number": [
+                2,
+                3
+              ],
+              "parent_names": [
+                "Tools"
+              ],
+              "path": "tools/kubernetes.md",
+              "source_path": "tools/kubernetes.md",
+              "sub_items": [
+                {
+                  "Chapter": {
+                    "content": "",
+                    "name": "Pod",
+                    "number": [
+                      2,
+                      3,
+                      1
+                    ],
+                    "parent_names": [
+                      "Tools",
+                      "Kubernetes"
+                    ],
+                    "path": "tools/kubernetes/pod.md",
+                    "source_path": "tools/kubernetes/pod.md",
+                    "sub_items": []
+                  }
+                },
+                {
+                  "Chapter": {
+                    "content": "",
+                    "name": "Service",
+                    "number": [
+                      2,
+                      3,
+                      2
+                    ],
+                    "parent_names": [
+                      "Tools",
+                      "Kubernetes"
+                    ],
+                    "path": "tools/kubernetes/service.md",
+                    "source_path": "tools/kubernetes/service.md",
+                    "sub_items": []
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "Separator",
+    {
+      "Chapter": {
+        "content": "",
+        "name": "The End",
+        "number": [
+          3
+        ],
+        "parent_names": [],
+        "path": null,
+        "source_path": null,
+        "sub_items": []
+      }
+    },
+    {
+      "Chapter": {
+        "content": "",
+        "name": "Suffix",
+        "number": null,
+        "parent_names": [],
+        "path": null,
+        "source_path": null,
+        "sub_items": []
+      }
+    }
+  ]
+}

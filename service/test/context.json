@@ -1,0 +1,23 @@
+{
+  "root": "/tmp/mindmap-demo",
+  "config": {
+    "book": {
+      "authors": [
+        "Anonymous"
+      ],
+      "language": "en",
+      "multilingual": false,
+      "src": "src",
+      "title": "MindMap Demo"
+    },
+    "preprocessor": {
+      "mindmap": {
+        "renderers": [
+          "html"
+        ]
+      }
+    }
+  },
+  "renderer": "html",
+  "mdbook_version": "0.4.34"
+}

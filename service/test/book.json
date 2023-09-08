@@ -1,0 +1,156 @@
+{
+  "sections": [
+    {
+      "Chapter": {
+        "name": "Prefix",
+        "content": "",
+        "number": null,
+        "sub_items": [],
+        "path": null,
+        "source_path": null,
+        "parent_names": []
+      }
+    },
+    {
+      "Chapter": {
+        "name": "Chapter 1",
+        "content": "# Chapter 1\n",
+        "number": [
+          1
+        ],
+        "sub_items": [],
+        "path": "chapter_1.md",
+        "source_path": "chapter_1.md",
+        "parent_names": []
+      }
+    },
+    {
+      "PartTitle": "Tool Part"
+    },
+    {
+      "Chapter": {
+        "name": "Tools",
+        "content": "# MindMap Chapter\n\n!mindmap\n\n",
+        "number": [
+          2
+        ],
+        "sub_items": [
+          {
+            "Chapter": {
+              "name": "Gradle",
+              "content": "",
+              "number": [
+                2,
+                1
+              ],
+              "sub_items": [],
+              "path": "tools/gradle.md",
+              "source_path": "tools/gradle.md",
+              "parent_names": [
+                "Tools"
+              ]
+            }
+          },
+          {
+            "Chapter": {
+              "name": "NPM",
+              "content": "",
+              "number": [
+                2,
+                2
+              ],
+              "sub_items": [],
+              "path": "tools/npm.md",
+              "source_path": "tools/npm.md",
+              "parent_names": [
+                "Tools"
+              ]
+            }
+          },
+          {
+            "Chapter": {
+              "name": "Kubernetes",
+              "content": "",
+              "number": [
+                2,
+                3
+              ],
+              "sub_items": [
+                {
+                  "Chapter": {
+                    "name": "Pod",
+                    "content": "",
+                    "number": [
+                      2,
+                      3,
+                      1
+                    ],
+                    "sub_items": [],
+                    "path": "tools/kubernetes/pod.md",
+                    "source_path": "tools/kubernetes/pod.md",
+                    "parent_names": [
+                      "Tools",
+                      "Kubernetes"
+                    ]
+                  }
+                },
+                {
+                  "Chapter": {
+                    "name": "Service",
+                    "content": "",
+                    "number": [
+                      2,
+                      3,
+                      2
+                    ],
+                    "sub_items": [],
+                    "path": "tools/kubernetes/service.md",
+                    "source_path": "tools/kubernetes/service.md",
+                    "parent_names": [
+                      "Tools",
+                      "Kubernetes"
+                    ]
+                  }
+                }
+              ],
+              "path": "tools/kubernetes.md",
+              "source_path": "tools/kubernetes.md",
+              "parent_names": [
+                "Tools"
+              ]
+            }
+          }
+        ],
+        "path": "chapter_mindmap.md",
+        "source_path": "chapter_mindmap.md",
+        "parent_names": []
+      }
+    },
+    "Separator",
+    {
+      "Chapter": {
+        "name": "The End",
+        "content": "",
+        "number": [
+          3
+        ],
+        "sub_items": [],
+        "path": null,
+        "source_path": null,
+        "parent_names": []
+      }
+    },
+    {
+      "Chapter": {
+        "name": "Suffix",
+        "content": "",
+        "number": null,
+        "sub_items": [],
+        "path": null,
+        "source_path": null,
+        "parent_names": []
+      }
+    }
+  ],
+  "__non_exhaustive": null
+}
