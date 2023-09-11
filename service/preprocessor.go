@@ -21,10 +21,11 @@ func (p *DefaultPreprocessor) ProcessBook(context map[string]any, book map[strin
 		processedSections = append(processedSections, processedSection)
 	}
 
-	processedBook := map[string]any{
-		"sections":         processedSections,
-		"__non_exhaustive": book["__non_exhaustive"],
+	processedBook := make(map[string]any)
+	for k, v := range book {
+		processedBook[k] = v
 	}
+	processedBook["sections"] = processedSections
 
 	return processedBook
 }
