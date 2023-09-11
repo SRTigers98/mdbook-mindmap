@@ -1,6 +1,7 @@
 # mdbook-mindmap
 
 [![Build](https://github.com/SRTigers98/mdbook-mindmap/actions/workflows/build.yml/badge.svg)](https://github.com/SRTigers98/mdbook-mindmap/actions/workflows/build.yml)
+[![mdBook](https://img.shields.io/badge/mdBook-0.4.34-blue.svg)](https://github.com/rust-lang/mdBook/releases/tag/v0.4.34)
 
 A mdbook preprocessor to create mindmaps from the book structure.
 
