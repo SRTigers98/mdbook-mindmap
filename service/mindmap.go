@@ -1,16 +1,20 @@
 package service
 
 import (
+	"bytes"
 	"fmt"
 	"hash/crc32"
 	"strings"
+	"text/template"
 )
 
 const (
 	MINDMAP_TEMPLATE = `<pre class="mermaid">
 mindmap
-  root)%s(
-%s
+  root){{ .name }}(
+{{- range .items }}
+    {{ . }}
+{{- end }}
 </pre>`
 )
 
@@ -19,10 +23,13 @@ type MindmapCreator interface {
 }
 
 type DefaultMindmapCreator struct {
+	tmpl template.Template
 }
 
 func NewMindmapCreator() MindmapCreator {
-	return &DefaultMindmapCreator{}
+	return &DefaultMindmapCreator{
+		tmpl: *template.Must(template.New("mindmap").Parse(MINDMAP_TEMPLATE)),
+	}
 }
 
 func (c *DefaultMindmapCreator) CreateMindmap(chapter map[string]any) string {
@@ -30,11 +37,17 @@ func (c *DefaultMindmapCreator) CreateMindmap(chapter map[string]any) string {
 
 	items := createMindmapItems(chapter["sub_items"].([]any), 0)
 
-	return fmt.Sprintf(MINDMAP_TEMPLATE, rootName, items)
+	var mindmap bytes.Buffer
+	c.tmpl.Execute(&mindmap, map[string]any{
+		"name":  rootName,
+		"items": items,
+	})
+
+	return mindmap.String()
 }
 
-func createMindmapItems(items []any, depth int) string {
-	spacing := strings.Repeat(" ", 4+(2*depth))
+func createMindmapItems(items []any, depth int) []string {
+	spacing := strings.Repeat(" ", 2*depth)
 
 	var mindmapItems []string
 	for _, item := range items {
@@ -52,9 +65,9 @@ func createMindmapItems(items []any, depth int) string {
 		subItems := createMindmapItems(chapter["sub_items"].([]any), depth+1)
 
 		if len(subItems) > 0 {
-			mindmapItems = append(mindmapItems, subItems)
+			mindmapItems = append(mindmapItems, subItems...)
 		}
 	}
 
-	return strings.Join(mindmapItems, "\n")
+	return mindmapItems
 }
