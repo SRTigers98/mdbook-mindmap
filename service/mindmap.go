@@ -2,21 +2,15 @@ package service
 
 import (
 	"bytes"
+	_ "embed"
 	"fmt"
 	"hash/crc32"
 	"strings"
 	"text/template"
 )
 
-const (
-	MINDMAP_TEMPLATE = `<pre class="mermaid">
-mindmap
-  root){{ .name }}(
-{{- range .items }}
-    {{ . }}
-{{- end }}
-</pre>`
-)
+//go:embed template/mindmap.html
+var mindmapTemplate []byte
 
 type MindmapCreator interface {
 	CreateMindmap(chapter map[string]any) string
@@ -28,7 +22,7 @@ type DefaultMindmapCreator struct {
 
 func NewMindmapCreator() MindmapCreator {
 	return &DefaultMindmapCreator{
-		tmpl: *template.Must(template.New("mindmap").Parse(MINDMAP_TEMPLATE)),
+		tmpl: *template.Must(template.New("mindmap").Parse(string(mindmapTemplate))),
 	}
 }
 
