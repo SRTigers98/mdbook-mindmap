@@ -17,12 +17,12 @@ type MindmapCreator interface {
 }
 
 type DefaultMindmapCreator struct {
-	tmpl template.Template
+	tmpl *template.Template
 }
 
 func NewMindmapCreator() MindmapCreator {
 	return &DefaultMindmapCreator{
-		tmpl: *template.Must(template.New("mindmap").Parse(string(mindmapTemplate))),
+		tmpl: template.Must(template.New("mindmap").Parse(string(mindmapTemplate))),
 	}
 }
 
