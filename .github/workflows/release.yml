@@ -1,0 +1,82 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Create Release
+        if: ${{ !contains(github.ref_name, '-') }}
+        run: gh release create ${{ github.ref_name }} -F .github/release/${{ github.ref_name }}.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Pre-Release
+        if: contains(github.ref_name, '-')
+        run: gh release create ${{ github.ref_name }} -F .github/release/${{ github.ref_name }}.md -p
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  assets:
+    runs-on: ubuntu-latest
+    needs:
+      - release
+
+    strategy:
+      matrix:
+        include:
+          - os: linux
+            arch: amd64
+          - os: linux
+            arch: arm64
+          - os: darwin
+            arch: amd64
+          - os: windows
+            arch: amd64
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version-file: go.mod
+          check-latest: true
+
+      - name: Build
+        run: GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} go build
+
+      - name: Tar
+        if: matrix.os != 'windows'
+        run: tar -czf mdbook-mindmap-${{ matrix.os }}-${{ matrix.arch }}.tar.gz mdbook-mindmap
+
+      - name: Zip
+        if: matrix.os == 'windows'
+        run: zip mdbook-mindmap-${{ matrix.os }}-${{ matrix.arch }}.zip mdbook-mindmap.exe
+
+      - name: Add Tar to Release
+        if: matrix.os != 'windows'
+        run: gh release upload ${{ github.ref_name }} mdbook-mindmap-${{ matrix.os }}-${{ matrix.arch }}.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add Zip to Release
+        if: matrix.os == 'windows'
+        run: gh release upload ${{ github.ref_name }} mdbook-mindmap-${{ matrix.os }}-${{ matrix.arch }}.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
