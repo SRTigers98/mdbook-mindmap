@@ -18,13 +18,13 @@ jobs:
 
       - name: Create Release
         if: ${{ !contains(github.ref_name, '-') }}
-        run: gh release create ${{ github.ref_name }} -F .github/release/${{ github.ref_name }}.md
+        run: gh release create ${{ github.ref_name }} -F changelog/${{ github.ref_name }}.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Pre-Release
         if: contains(github.ref_name, '-')
-        run: gh release create ${{ github.ref_name }} -F .github/release/${{ github.ref_name }}.md -p
+        run: gh release create ${{ github.ref_name }} -F changelog/${{ github.ref_name }}.md -p
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
