@@ -19,7 +19,7 @@ var rootCmd = &cobra.Command{
 		err := json.NewDecoder(os.Stdin).Decode(&input)
 		cobra.CheckErr(err)
 
-		book := service.NewPreprocessor().ProcessBook(input[0], input[1])
+		book := service.ProcessBook(input[0], input[1])
 
 		output, err := json.Marshal(book)
 		cobra.CheckErr(err)

@@ -11,28 +11,19 @@ import (
 
 //go:embed template/mindmap.html
 var mindmapTemplate []byte
+var tmpl *template.Template
 
-type MindmapCreator interface {
-	CreateMindmap(chapter map[string]any) string
+func init() {
+	tmpl = template.Must(template.New("mindmap").Parse(string(mindmapTemplate)))
 }
 
-type DefaultMindmapCreator struct {
-	tmpl *template.Template
-}
-
-func NewMindmapCreator() MindmapCreator {
-	return &DefaultMindmapCreator{
-		tmpl: template.Must(template.New("mindmap").Parse(string(mindmapTemplate))),
-	}
-}
-
-func (c *DefaultMindmapCreator) CreateMindmap(chapter map[string]any) string {
+func CreateMindmap(chapter map[string]any) string {
 	rootName := chapter["name"].(string)
 
 	items := createMindmapItems(chapter["sub_items"].([]any), 0)
 
 	var mindmap bytes.Buffer
-	c.tmpl.Execute(&mindmap, map[string]any{
+	tmpl.Execute(&mindmap, map[string]any{
 		"name":  rootName,
 		"items": items,
 	})
@@ -45,7 +36,7 @@ func createMindmapItems(items []any, depth int) []string {
 
 	var mindmapItems []string
 	for _, item := range items {
-		if !sectionProcessor.IsChapter(item) {
+		if !IsChapter(item) {
 			continue
 		}
 

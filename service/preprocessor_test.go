@@ -20,14 +20,12 @@ func init() {
 }
 
 func TestProcessBook(t *testing.T) {
-	tested := NewPreprocessor()
-
 	var context map[string]any
 	json.Unmarshal(contextData, &context)
 	var book map[string]any
 	json.Unmarshal(bookData, &book)
 
-	result := tested.ProcessBook(context, book)
+	result := ProcessBook(context, book)
 
 	var expectedResult map[string]any
 	json.Unmarshal(resultData, &expectedResult)

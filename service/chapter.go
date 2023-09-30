@@ -13,19 +13,7 @@ const (
 </script>`
 )
 
-type ChapterProcessor interface {
-	HasMindmapIndicator(chapter map[string]any) bool
-	ProcessChapter(chapter map[string]any) map[string]any
-}
-
-type DefaultChapterProcessor struct {
-}
-
-func NewChapterProcessor() ChapterProcessor {
-	return &DefaultChapterProcessor{}
-}
-
-func (p *DefaultChapterProcessor) HasMindmapIndicator(chapter map[string]any) bool {
+func HasMindmapIndicator(chapter map[string]any) bool {
 	content, ok := chapter["content"]
 	if !ok {
 		return false
@@ -34,7 +22,7 @@ func (p *DefaultChapterProcessor) HasMindmapIndicator(chapter map[string]any) bo
 	return strings.Contains(content.(string), MINDMAP_INDICATOR)
 }
 
-func (p *DefaultChapterProcessor) ProcessChapter(chapter map[string]any) map[string]any {
+func ProcessChapter(chapter map[string]any) map[string]any {
 	processedContent := processContent(chapter)
 	processedSubItems := processSubItems(chapter)
 
@@ -53,7 +41,7 @@ func processContent(chapter map[string]any) string {
 
 	withImport := fmt.Sprintf("%s\n%s", content, MERMAID_IMPORT)
 
-	mindmap := mindmapCreator.CreateMindmap(chapter)
+	mindmap := CreateMindmap(chapter)
 	processedContent := strings.ReplaceAll(withImport, MINDMAP_INDICATOR, mindmap)
 
 	return processedContent
@@ -64,7 +52,7 @@ func processSubItems(chapter map[string]any) []any {
 
 	var processedItems []any
 	for _, item := range subItems {
-		processedItem := sectionProcessor.ProcessSection(item)
+		processedItem := ProcessSection(item)
 
 		processedItems = append(processedItems, processedItem)
 	}
