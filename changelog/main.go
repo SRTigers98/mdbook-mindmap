@@ -55,10 +55,10 @@ func getLastTag() string {
 func getCommitHistory(lastTag string) []string {
 	var gitLogCmd *exec.Cmd
 	if len(lastTag) == 0 {
-		gitLogCmd = exec.Command("git", "--no-pager", "log", "--format=%s")
+		gitLogCmd = exec.Command("git", "--no-pager", "log", "--format='%s (%h)'")
 	} else {
-		historyRange := fmt.Sprintf("%s..HEAD", lastTag)
-		gitLogCmd = exec.Command("git", "--no-pager", "log", historyRange, "--format=%s")
+		historyRange := fmt.Sprintf("%s..HEAD", strings.Trim(lastTag, "\n"))
+		gitLogCmd = exec.Command("git", "--no-pager", "log", historyRange, "--format='%s (%h)'")
 	}
 
 	if log, err := gitLogCmd.Output(); err != nil {
